@@ -1,0 +1,88 @@
+int enA = 3; 
+int in1 = 4;
+int in2 = 5;
+int enB = 6;
+int in3 = 7;
+int in4 = 8;
+
+void setup() {
+  Serial.begin(9600);
+  pinMode(enA,OUTPUT);
+  pinMode(in1,OUTPUT);
+  pinMode(in2,OUTPUT);
+  pinMode(enB,OUTPUT);
+  pinMode(in3,OUTPUT);
+  pinMode(in4,OUTPUT);
+}
+
+void loop() {
+  if(Serial.available()>0){
+    int data = Serial.read();
+    if (data == 'F'){
+      forward();
+      Serial.println("MAJU");
+    }
+    else if (data == 'B'){
+      backward();
+      Serial.println("MUNDUR");
+    }
+    else if (data == 'R'){
+      right();
+      Serial.println("KANAN");
+    }
+    else if (data == 'L'){
+      left();
+      Serial.println("KIRI");
+    }
+    else if (data == 'S'){
+      STOP();
+      Serial.println("STOP");
+    }
+  }
+}
+
+
+void right(){
+  analogWrite(enA,60);
+  analogWrite(enB,60);
+  digitalWrite(in1,HIGH);
+  digitalWrite(in2,LOW);
+  digitalWrite(in3,LOW);
+  digitalWrite(in4,HIGH);
+}
+
+void left(){
+  analogWrite(enA,60);
+  analogWrite(enB,60);
+  digitalWrite(in1,LOW);
+  digitalWrite(in2,HIGH);
+  digitalWrite(in3,HIGH);
+  digitalWrite(in4,LOW);
+}
+
+void forward(){
+  analogWrite(enA,60);
+  analogWrite(enB,60);
+  digitalWrite(in1,HIGH);
+  digitalWrite(in2,LOW);
+  digitalWrite(in3,HIGH);
+  digitalWrite(in4,LOW);
+}
+
+void backward(){
+  analogWrite(enA,60);
+  analogWrite(enB,60);
+  digitalWrite(in1,LOW);
+  digitalWrite(in2,HIGH);
+  digitalWrite(in3,LOW);
+  digitalWrite(in4,HIGH);
+}
+
+void STOP(){
+  analogWrite(enA,0);
+  analogWrite(enB,0);
+  digitalWrite(in1,LOW);
+  digitalWrite(in2,LOW);
+  digitalWrite(in3,LOW);
+  digitalWrite(in4,LOW);
+}
