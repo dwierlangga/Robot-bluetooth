@@ -1,0 +1,27 @@
+#include <SoftwareSerial.h>
+
+const int led = 5;
+
+SoftwareSerial dataserial(12, 13);
+
+void setup() {
+  Serial.begin(9600);
+  dataserial.begin(9600);
+  pinMode(led, OUTPUT);
+}
+
+void loop() {
+  if (dataserial.available()>0){
+    char data = dataserial.read();
+    switch(data){
+      case '1':
+      digitalWrite(led, HIGH);
+      break;
+      case '0':
+      digitalWrite(led, LOW);
+      break;
+      default:
+      break;
+    }
+  }
+}
