@@ -1,88 +1,77 @@
-int enA = 3; 
-int in1 = 4;
-int in2 = 5;
-int enB = 6;
-int in3 = 7;
-int in4 = 8;
+int Motor1 = 9;
+int Motor2 = 8;
+int Motor3 = 7;
+int Motor4 = 6;
+int en1 = 5;
+int en2 = 10; 
 
-void setup() {
+
+void setup(){
   Serial.begin(9600);
-  pinMode(enA,OUTPUT);
-  pinMode(in1,OUTPUT);
-  pinMode(in2,OUTPUT);
-  pinMode(enB,OUTPUT);
-  pinMode(in3,OUTPUT);
-  pinMode(in4,OUTPUT);
+  pinMode(Motor1, OUTPUT);
+  pinMode(Motor2, OUTPUT);
+  pinMode(Motor3, OUTPUT);
+  pinMode(Motor4, OUTPUT);
+  pinMode(en1, OUTPUT);
+  pinMode(en2, OUTPUT);
+  
+  analogWrite(en1, 225);
+  analogWrite(en2, 225);
 }
 
-void loop() {
+void maju(){
+  digitalWrite(Motor1, LOW);
+  digitalWrite(Motor2, HIGH);
+  digitalWrite(Motor3, HIGH);
+  digitalWrite(Motor4, LOW);
+}
+
+void mundur(){
+  digitalWrite(Motor1, HIGH);
+  digitalWrite(Motor2, LOW);
+  digitalWrite(Motor3, LOW);
+  digitalWrite(Motor4, HIGH);
+}
+
+void kanan(){
+  digitalWrite(Motor1, LOW);
+  digitalWrite(Motor2, HIGH);
+  digitalWrite(Motor3, LOW);
+  digitalWrite(Motor4, HIGH);
+}
+
+void kiri(){
+  digitalWrite(Motor1, HIGH);
+  digitalWrite(Motor2, LOW);
+  digitalWrite(Motor3, HIGH);
+  digitalWrite(Motor4, LOW);
+}
+
+
+void berhenti(){
+  digitalWrite(Motor1, LOW);
+  digitalWrite(Motor2, LOW);
+  digitalWrite(Motor3, LOW);
+  digitalWrite(Motor4, LOW);
+}
+
+void loop(){
   if(Serial.available()>0){
     int data = Serial.read();
     if (data == 'F'){
-      forward();
-      Serial.println("MAJU");
+      maju();
     }
     else if (data == 'B'){
-      backward();
-      Serial.println("MUNDUR");
+      mundur();
     }
     else if (data == 'R'){
-      right();
-      Serial.println("KANAN");
+      kanan();
     }
     else if (data == 'L'){
-      left();
-      Serial.println("KIRI");
+      kiri();
     }
     else if (data == 'S'){
-      STOP();
-      Serial.println("STOP");
+      berhenti();
     }
   }
-}
-
-
-void right(){
-  analogWrite(enA,60);
-  analogWrite(enB,60);
-  digitalWrite(in1,HIGH);
-  digitalWrite(in2,LOW);
-  digitalWrite(in3,LOW);
-  digitalWrite(in4,HIGH);
-}
-
-void left(){
-  analogWrite(enA,60);
-  analogWrite(enB,60);
-  digitalWrite(in1,LOW);
-  digitalWrite(in2,HIGH);
-  digitalWrite(in3,HIGH);
-  digitalWrite(in4,LOW);
-}
-
-void forward(){
-  analogWrite(enA,60);
-  analogWrite(enB,60);
-  digitalWrite(in1,HIGH);
-  digitalWrite(in2,LOW);
-  digitalWrite(in3,HIGH);
-  digitalWrite(in4,LOW);
-}
-
-void backward(){
-  analogWrite(enA,60);
-  analogWrite(enB,60);
-  digitalWrite(in1,LOW);
-  digitalWrite(in2,HIGH);
-  digitalWrite(in3,LOW);
-  digitalWrite(in4,HIGH);
-}
-
-void STOP(){
-  analogWrite(enA,0);
-  analogWrite(enB,0);
-  digitalWrite(in1,LOW);
-  digitalWrite(in2,LOW);
-  digitalWrite(in3,LOW);
-  digitalWrite(in4,LOW);
 }
